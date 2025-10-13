@@ -39,6 +39,7 @@ COPY ./install-nerdfont.sh /install-nerdfont.sh
 RUN /install-nerdfont.sh
 
 COPY ./emacs-config /root/.config/emacs
+COPY ./git-config /root/.config/git
 
 WORKDIR /workdir
 VOLUME /workdir
