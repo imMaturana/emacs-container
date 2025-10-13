@@ -22,22 +22,23 @@ Really simple, just run the ~build.sh~ script: ~$ ./build.sh~
 
 Next, you need to tweak your shell:
 
-#+BEGIN_SRC bash
+#+BEGIN_SRC shell
   emacs() {
-    podman volume create --ignore emacs-data
+      podman volume create --ignore emacs-data
 
-    podman run -dt --rm \
-            --name=emacs \
-            --network=host \
-            -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY \
-  	  -v emacs-data:/root/.config/emacs \
-  	  # If you don't use Org, you can comment this line
-  	  -v $HOME/${YOUR_ORG_DIRECTORY}:/root/Org:z \
-  	  -v $HOME:/workdir:z \
-  	  emacs
-
+      podman run -dt --rm \
+  	   --name=emacs \
+  	   --network=host \
+  	   -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY \
+  	   -v emacs-data:/root/.config/emacs \
+  	   # Bind ssh keys for git authentication
+  	   -v $HOME/.ssh:/root/.ssh:z \
+  	   # If you don't use Org, you might want to comment this line
+  	   -v $HOME/$YOUR_ORG_DIRECTORY:/root/Org:z \
+  	   -v $HOME:/workdir:z \
+  	   emacs
+      
   }
 #+END_SRC
 
 Copy and paste it into your ~.bashrc~ or ~.zshrc~ and it's done.
-
