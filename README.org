@@ -13,8 +13,7 @@ container. The thing is, I wanted a /kind of/ isolated environment to
 not pollute my desktop.
 
 I know that softwares like *distrobox* and *toolbox* exists, but I
-wanted a simple solution, then I came with this, and it works really
-well.
+wanted a simple solution.
 
 ** How do I use this?
 
