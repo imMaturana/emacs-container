@@ -1,0 +1,43 @@
+#+title: README
+
+* Emacs GUI (but inside a container)
+
+#+BEGIN_QUOTE
+I made this for personal use, I don't recommend cloning this
+repository and using it as is. Take a look at the files and modify
+them according to your own needs.
+#+END_QUOTE
+
+You might ask why the heck someone would like to use Emacs inside a
+container. The thing is, I wanted a /kind of/ isolated environment to
+not pollute my desktop.
+
+I know that softwares like *distrobox* and *toolbox* exists, but I
+wanted a simple solution, then I came with this, and it works really
+well.
+
+** How do I use this?
+
+Really simple, just run the ~build.sh~ script: ~$ ./build.sh~
+
+Next, you need to tweak your shell:
+
+#+BEGIN_SRC bash
+  emacs() {
+    podman volume create --ignore emacs-data
+
+    podman run -dt --rm \
+            --name=emacs \
+            --network=host \
+            -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY \
+  	  -v emacs-data:/root/.config/emacs \
+  	  # If you don't use Org, you can comment this line
+  	  -v $HOME/${YOUR_ORG_DIRECTORY}:/root/Org:z \
+  	  -v $HOME:/workdir:z \
+  	  emacs
+
+  }
+#+END_SRC
+
+Copy and paste it into your ~.bashrc~ or ~.zshrc~ and it's done.
+
