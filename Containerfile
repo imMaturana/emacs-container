@@ -36,14 +36,15 @@ RUN dnf install -y \
 RUN curl https://mise.run | MISE_INSTALL_PATH=/usr/bin/mise sh
 
 COPY ./install-nerdfont.sh /install-nerdfont.sh
-COPY ./emacs /root/.config/emacs
-
 RUN /install-nerdfont.sh
+
+COPY ./emacs-config /root/.config/emacs
 
 WORKDIR /workdir
 VOLUME /workdir
 
 VOLUME /root/.config/emacs
+VOLUME /root/.ssh
 VOLUME /root/Documents/Org
 
 ENTRYPOINT ["emacs"]

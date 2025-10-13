@@ -92,16 +92,6 @@
 
 (use-package magit)
 
-(use-package projectile
-  :init
-  (when (file-directory-p "~/Projects/Code")
-    (setq projectile-project-search-path '("~/Project/Code")))
-  (setq projectile-switch-project-action #'projectile-dired)
-  :config
-  (projectile-mode)
-  :bind-keymap
-  ("C-c p" . projectile-command-map))
-
 (use-package mise
   :init
   (global-mise-mode))
@@ -137,7 +127,7 @@
 
 (use-package org-roam
   :custom
-  (org-roam-directory "~/Documents/Org/Roam")
+  (org-roam-directory "~/Org/Roam")
   (org-roam-dailies-directory "daily/")
 
   (org-roam-dailies-capture-templates
@@ -149,7 +139,6 @@
       :if-new (file+head "pages/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n"))))
   :config
   (require 'org-roam-dailies)
-  (org-roam-setup)
   (org-roam-db-autosync-mode)
   :bind (("C-c n l" . org-roam-buffer-toggle)
 	 ("C-c n f" . org-roam-node-find)
@@ -172,7 +161,6 @@
   (org-roam-ui-open-on-start t))
 
 (use-package xenops
-  :hook (org-mode . xenops-mode)
   :init
   (setq xenops-font-height 100)
   (setq xenops-math-image-scale-factor 0.8)
