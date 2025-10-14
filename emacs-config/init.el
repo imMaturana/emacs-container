@@ -114,12 +114,32 @@
 
 (defun my/org-mode-setup ()
   (org-indent-mode)
+  (visual-line-mode)
+  (variable-pitch-mode 1)
   (setq evil-auto-indent nil))
 
 (use-package org
   :hook (org-mode . my/org-mode-setup)
   :custom
-  (org-format-latex-options '(:background default :foreground default :scale 0.75 :html-scale 1.0)))
+  (org-ellipsis " ▼")
+  
+  (org-agenda-files "~/Org/tasks.org")
+  :config
+  (set-face-attribute 'variable-pitch nil
+		      :family "Noto Serif"
+		      :height 130)
+  (set-face-attribute 'fixed-pitch nil
+		      :family "Noto Sans Mono"
+		      :height 120)
+
+  (set-face-attribute 'org-level-1 nil :height 1.5 :weight 'bold)
+  (set-face-attribute 'org-level-2 nil :height 1.4 :weight 'bold)
+  (set-face-attribute 'org-level-3 nil :height 1.3 :weight 'bold)
+  (set-face-attribute 'org-level-4 nil :height 1.2 :weight 'bold)
+  (set-face-attribute 'org-level-5 nil :height 1.1 :weight 'bold)
+  (set-face-attribute 'org-level-6 nil :height 1.1 :weight 'bold)
+  (set-face-attribute 'org-block nil   :inherit 'fixed-pitch :height 1.0)
+  (set-face-attribute 'org-code nil    :inherit 'fixed-pitch :height 1.0))
 
 (use-package org-superstar
   :after org
@@ -127,18 +147,28 @@
 
 (use-package org-roam
   :custom
-  (org-roam-directory "~/Org/Roam")
+  (org-roam-directory (file-truename "~/Org/roam/"))
   (org-roam-dailies-directory "daily/")
 
   (org-roam-dailies-capture-templates
-   '(("d" "default" entry "* %?"
-      :if-new (file+head "%<%Y%m%d>.org" "#+title: %<%d.%m.%Y>\n"))))
+   '(("d" "default" plain
+      "* Notes\n%?"
+      :if-new (file+head "%<%Y%m%d>.org" "#+title: %<%d.%m.%Y>\n")
+      :unnarrowed t)))
 
   (org-roam-capture-templates
-   '(("d" "default" plain "%?"
-      :if-new (file+head "pages/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n"))))
+   '(("d" "default" plain
+      "%?"
+      :if-new (file+head "pages/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+
+     ("b" "book" plain
+      (file "~/Org/roam/templates/book.org")
+      :target (file+head "pages/<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)))
   :config
   (require 'org-roam-dailies)
+  (org-roam-setup)
   (org-roam-db-autosync-mode)
   :bind (("C-c n l" . org-roam-buffer-toggle)
 	 ("C-c n f" . org-roam-node-find)

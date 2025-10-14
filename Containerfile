@@ -33,6 +33,11 @@ RUN dnf install -y \
 	dvisvgm \
 	git
 
+# fonts
+RUN dnf install -y \
+	google-noto-serif-fonts \
+	google-noto-mono-fonts
+
 # install mise
 RUN curl https://mise.run | MISE_INSTALL_PATH=/usr/bin/mise sh
 
