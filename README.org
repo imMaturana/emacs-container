@@ -13,7 +13,6 @@ I know that softwares like *distrobox* and *toolbox* exists, but I
 wanted a simple solution.
 
 ** How do I use this?
-
 Really simple, just run the ~build.sh~ script: ~$ ./build.sh~
 
 Next, you need to tweak your shell:
@@ -37,4 +36,4 @@ Next, you need to tweak your shell:
   }
 #+END_SRC
 
-Copy and paste it into your ~.bashrc~ or ~.zshrc~ and it's done.
+Copy and paste that into your ~.bashrc~ or ~.zshrc~ and it's done.
