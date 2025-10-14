@@ -17,6 +17,7 @@ RUN dnf install -y \
 	texlive-scheme-basic \
 	texlive-collection-basic \
 	texlive-collection-fontsrecommended \
+	texlive-ulem \
 	texlive-wrapfig \
 	texlive-capt-of
 
