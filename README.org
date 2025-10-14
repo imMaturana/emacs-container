@@ -1,7 +1,4 @@
-#+title: README
-
-* Emacs GUI (but inside a container)
-
+#+title: Emacs GUI (but inside a container)
 #+BEGIN_QUOTE
 I made this for personal use, I don't recommend cloning this
 repository and using it as is. Take a look at the files and modify
