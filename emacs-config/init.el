@@ -119,6 +119,13 @@
   (variable-pitch-mode 1)
   (setq evil-auto-indent nil))
 
+(defun my/org-toggle-emphasis ()
+  (interactive)
+  (if org-hide-emphasis-markers
+      (setq org-hide-emphasis-markers nil)
+    (setq org-hide-emphasis-markers t))
+  (org-mode))
+
 (use-package org
   :hook (org-mode . my/org-mode-setup)
   :custom
@@ -140,7 +147,9 @@
   (set-face-attribute 'org-level-5 nil :height 1.1 :weight 'bold)
   (set-face-attribute 'org-level-6 nil :height 1.1 :weight 'bold)
   (set-face-attribute 'org-block nil   :inherit 'fixed-pitch :height 1.0)
-  (set-face-attribute 'org-code nil    :inherit 'fixed-pitch :height 1.0))
+  (set-face-attribute 'org-code nil    :inherit 'fixed-pitch :height 1.0)
+  :bind ((:map org-mode-map
+	       ("C-c t" . my/org-toggle-emphasis))))
 
 (use-package org-superstar
   :after org
