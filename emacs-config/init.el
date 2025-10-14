@@ -81,7 +81,8 @@
 
   (my/leader-keys
     "SPC" 'eshell
-    "r" 'restart-emacs))
+    "r" 'restart-emacs
+    "z" 'writeroom-mode))
 
 (use-package helm
   :config
@@ -195,3 +196,5 @@
   (setq xenops-font-height 100)
   (setq xenops-math-image-scale-factor 0.8)
   (setq xenops-reveal-on-entry t))
+
+(use-package writeroom-mode)
