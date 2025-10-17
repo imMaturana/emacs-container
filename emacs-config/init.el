@@ -176,7 +176,7 @@
 
      ("b" "book" plain
       (file "~/Org/roam/templates/book.org")
-      :target (file+head "pages/<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :target (file+head "pages/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)))
   :config
   (require 'org-roam-dailies)
