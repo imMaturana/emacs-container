@@ -114,6 +114,8 @@
   (doom-themes-org-config) ; Improves org-mode's fontification
   (load-theme 'doom-one t))
 
+(setq my/org-font-height 130)
+
 (defun my/org-mode-setup ()
   (org-indent-mode)
   (visual-line-mode)
@@ -136,7 +138,7 @@
   :config
   (set-face-attribute 'variable-pitch nil
 		      :family "Noto Serif"
-		      :height 130)
+		      :height my/org-font-height)
   (set-face-attribute 'fixed-pitch nil
 		      :family "Noto Sans Mono"
 		      :height 120)
@@ -203,8 +205,8 @@
 
 (use-package xenops
   :init
-  (setq xenops-font-height 100)
-  (setq xenops-math-image-scale-factor 0.8)
+  (setq xenops-font-height (/ my/org-font-height 2))
+  (setq xenops-math-image-scale-factor 0.7)
   (setq xenops-reveal-on-entry t))
 
 (use-package writeroom-mode)
