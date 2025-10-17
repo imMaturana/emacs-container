@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-font=$FONT_NERDFONT
+font="Hack"
 version="3.4.0"
 
 font_tarxz="${font}.tar.xz"

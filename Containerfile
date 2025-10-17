@@ -1,11 +1,9 @@
 FROM registry.fedoraproject.org/fedora:latest
 
 ARG WAYLAND_DISPLAY
-ARG FONT_NERDFONT
 
 ENV XDG_RUNTIME_DIR=/tmp
 ENV WAYLAND_DISPLAY=$WAYLAND_DISPLAY
-ENV FONT_NERDFONT=$FONT_NERDFONT
 
 RUN dnf install -y \
 	coreutils \
