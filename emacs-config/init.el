@@ -117,7 +117,6 @@
 (setq my/org-font-height 130)
 
 (defun my/org-mode-setup ()
-  (org-indent-mode)
   (visual-line-mode)
   (variable-pitch-mode 1)
   (setq evil-auto-indent nil))
@@ -132,7 +131,7 @@
 (use-package org
   :hook (org-mode . my/org-mode-setup)
   :custom
-  (org-ellipsis " ▼")
+  (org-ellipsis "…")
   
   (org-agenda-files "~/Org/tasks.org")
   :config
@@ -154,9 +153,9 @@
   :bind ((:map org-mode-map
 	       ("C-c t" . my/org-toggle-emphasis))))
 
-(use-package org-superstar
+(use-package org-modern
   :after org
-  :hook (org-mode . org-superstar-mode))
+  :hook (org-mode . org-modern-mode))
 
 (use-package org-roam
   :custom
