@@ -21,15 +21,17 @@ Next, you need to tweak your shell:
   emacs() {
       podman volume create --ignore emacs-data
 
-      podman run -dt --rm \
+      podman run -dt --rm --replace \
   	   --name=emacs \
   	   --network=host \
   	   -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY \
   	   -v emacs-data:/root/.config/emacs \
   	   # Bind ssh keys for git authentication
-  	   -v $HOME/.ssh:/root/.ssh:z \
+  	   -v $HOME/.ssh:/root/.ssh:ro \
   	   # If you don't use Org, you might want to comment this line
-  	   -v $HOME/$YOUR_ORG_DIRECTORY:/root/Org:z \
+  	   -v $HOME/YOUR_ORG_DIRECTORY:/root/Org:z \
+  	   # Same thing, but for Roam
+  	   -v $HOME/YOUR_ORG_ROAM_DIRECTORY:/root/Roam:z \
   	   -v $HOME:/workdir:z \
   	   emacs
       
