@@ -34,7 +34,8 @@
   ;; Disable line numbers for some modes
   (dolist (mode '(org-mode-hook
 		  term-mode-hook
-		  eshell-mode-hook))
+		  eshell-mode-hook
+		  eww-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
   
   ;; Set font
