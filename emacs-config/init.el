@@ -157,7 +157,7 @@
 
 (use-package org-roam
   :custom
-  (org-roam-directory (file-truename "~/Org/roam/"))
+  (org-roam-directory (file-truename "~/Roam/"))
   (org-roam-dailies-directory "daily/")
 
   (org-roam-dailies-capture-templates

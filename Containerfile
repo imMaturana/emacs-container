@@ -51,6 +51,7 @@ VOLUME /workdir
 VOLUME /root/.config/emacs
 VOLUME /root/.ssh
 VOLUME /root/Org
+VOLUME /root/Roam
 
 ENTRYPOINT ["emacs"]
 
