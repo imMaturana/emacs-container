@@ -26,6 +26,10 @@ RUN dnf install -y \
 	libtree-sitter-python \
 	libtree-sitter-elixir
 
+# lang
+RUN dnf install -y \
+    	glibc-langpack-en
+
 # extra
 RUN dnf install -y \
 	dvisvgm \

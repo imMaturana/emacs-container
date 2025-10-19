@@ -49,6 +49,12 @@
   ;; Enable global completion preview
   (global-completion-preview-mode)
   (fido-mode t)
+
+  ;; UTF-8
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8-unix)
+  (set-keyboard-coding-system 'utf-8-unix)
+  (prefer-coding-system 'utf-8)
   :bind (("C-M-j" . next-buffer)
 	 ("C-M-k" . previous-buffer)
 
