@@ -229,3 +229,47 @@
   (setq xenops-reveal-on-entry t))
 
 (use-package writeroom-mode)
+
+(use-package nerd-icons)
+
+(use-package nerd-icons-dired
+  :after nerd-icons
+  :hook (dired-mode . nerd-icons-dired-mode))
+
+(use-package dashboard
+  :hook (after-init . dashboard-refresh-buffer)
+  :init
+  (setq dashboard-startup-banner 'logo)
+
+  (when (package-installed-p 'nerd-icons)
+    (setq dashboard-display-icons-p t)
+    (setq dashboard-icons-type 'nerd-icons)
+
+    (setq dashboard-set-heading-icons t)
+    (setq dashboard-set-file-icons t))
+
+  (when (package-installed-p 'projectile)
+    (setq dashboard-projects-backend 'projectile)
+    (require 'projectile))
+  :custom
+  (dashboard-startupify-list '(dashboard-insert-banner
+			       dashboard-insert-newline
+			       dashboard-insert-banner-title
+			       dashboard-insert-newline
+			       dashboard-insert-init-info
+			       dashboard-insert-newline
+			       dashboard-insert-navigator
+			       dashboard-insert-newline
+			       dashboard-insert-items
+			       dashboard-insert-newline
+			       dashboard-insert-footer))
+
+  (dashboard-items '((bookmarks . 5)
+		     (projects  . 5)
+		     (recents   . 5)))
+
+  (dashboard-item-shortcuts '((bookmarks . "m")
+			      (projects  . "p")
+			      (recents   . "r")))
+  :config
+  (dashboard-setup-startup-hook))
