@@ -120,6 +120,19 @@
   :init
   (global-mise-mode))
 
+(use-package emacs ; tree-sitter
+  :config
+  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.ex\\'" . elixir-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
+
+  (setq treesit-language-source-alist
+	'((bash "https://github.com/tree-sitter/tree-sitter-bash")
+	  (go "https://github.com/tree-sitter/tree-sitter-go")
+	  (python "https://github.com/tree-sitter/tree-sitter-python")
+	  (elixir "https://github.com/elixir-lang/tree-sitter-elixir")
+	  (heex "https://github.com/phoenixframework/tree-sitter-heex"))))
+
 (use-package doom-modeline
   :init
   (doom-modeline-mode 1)
