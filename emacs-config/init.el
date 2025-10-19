@@ -177,12 +177,12 @@
   (org-roam-capture-templates
    '(("d" "default" plain
       "%?"
-      :if-new (file+head "pages/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :if-new (file+head "pages/%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n")
       :unnarrowed t)
 
      ("b" "book" plain
-      (file "~/Org/roam/templates/book.org")
-      :target (file+head "pages/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      (file "~/Roam/templates/Book.org")
+      :target (file+head "pages/%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n")
       :unnarrowed t)))
   :config
   (require 'org-roam-dailies)
@@ -206,7 +206,7 @@
   (org-roam-ui-sync-theme t)
   (org-roam-ui-follow t)
   (org-roam-ui-update-on-save t)
-  (org-roam-ui-open-on-start t))
+  (org-roam-ui-open-on-start nil))
 
 (use-package xenops
   :after org
