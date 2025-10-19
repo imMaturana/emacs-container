@@ -136,48 +136,32 @@
   (doom-themes-org-config) ; Improves org-mode's fontification
   (load-theme 'doom-one t))
 
-(setq my/org-font-height 130)
-
-(defun my/org-mode-setup ()
-  (visual-line-mode)
-  (variable-pitch-mode 1)
-  (setq evil-auto-indent nil))
-
-(defun my/org-toggle-emphasis ()
-  (interactive)
-  (if org-hide-emphasis-markers
-      (setq org-hide-emphasis-markers nil)
-    (setq org-hide-emphasis-markers t))
-  (org-mode))
-
 (use-package org
+  :preface
+  (setq my/org-font-height 130)
+
+  (defun my/org-mode-setup ()
+    (visual-line-mode)
+    (variable-pitch-mode 1)
+    (setq evil-auto-indent nil))
   :hook (org-mode . my/org-mode-setup)
   :custom
+  (org-indent-mode)
   (org-ellipsis "…")
   
   (org-agenda-files "~/Org/tasks.org")
   :config
-  (set-face-attribute 'variable-pitch nil
-		      :family "Noto Serif"
-		      :height my/org-font-height)
-  (set-face-attribute 'fixed-pitch nil
-		      :family "Noto Sans Mono"
-		      :height 120)
-
-  (set-face-attribute 'org-level-1 nil :height 1.5 :weight 'bold)
-  (set-face-attribute 'org-level-2 nil :height 1.4 :weight 'bold)
-  (set-face-attribute 'org-level-3 nil :height 1.3 :weight 'bold)
-  (set-face-attribute 'org-level-4 nil :height 1.2 :weight 'bold)
-  (set-face-attribute 'org-level-5 nil :height 1.1 :weight 'bold)
-  (set-face-attribute 'org-level-6 nil :height 1.1 :weight 'bold)
+  (set-face-attribute 'org-document-title nil :height 1.5)
+  (set-face-attribute 'org-level-1 nil :height 1.0)
+  (set-face-attribute 'org-level-2 nil :height 1.0)
+  (set-face-attribute 'org-level-3 nil :height 1.0)
+  (set-face-attribute 'org-level-4 nil :height 1.0)
+  (set-face-attribute 'org-level-5 nil :height 1.0)
+  (set-face-attribute 'org-level-6 nil :height 1.0)
   (set-face-attribute 'org-block nil   :inherit 'fixed-pitch :height 1.0)
   (set-face-attribute 'org-code nil    :inherit 'fixed-pitch :height 1.0)
-  :bind ((:map org-mode-map
-	       ("C-c t" . my/org-toggle-emphasis))))
-
-(use-package org-modern
-  :after org
-  :hook (org-mode . org-modern-mode))
+  :bind (:map org-mode-map
+	      ("C-c l" . org-toggle-link-display)))
 
 (use-package org-roam
   :custom
@@ -225,6 +209,7 @@
   (org-roam-ui-open-on-start t))
 
 (use-package xenops
+  :after org
   :init
   (setq xenops-font-height (/ my/org-font-height 2))
   (setq xenops-math-image-scale-factor 0.7)
