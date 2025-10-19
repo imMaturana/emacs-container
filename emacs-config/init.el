@@ -92,11 +92,27 @@
     "z" 'writeroom-mode))
 
 (use-package helm
-  :config
+  :init
   (helm-mode t)
   :bind (("M-x" . helm-M-x)
 	 ("C-x C-f" . helm-find-files)
 	 ("C-x C-b" . helm-buffers-list)))
+
+(use-package projectile
+  :init
+  (setq projectile-auto-discover t)
+  (setq projectile-project-search-path '("~/Projects"))
+  (setq projectile-cleanup-known-projects nil)
+  :config
+  (projectile-discover-projects-in-search-path)
+  (projectile-mode)
+  :bind-keymap
+  ("C-c p" . projectile-command-map))
+
+(use-package helm-projectile
+  :after '(helm projectile)
+  :init
+  (helm-projectile-on))
 
 (use-package magit)
 

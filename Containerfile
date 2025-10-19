@@ -8,6 +8,7 @@ ENV WAYLAND_DISPLAY=$WAYLAND_DISPLAY
 RUN dnf install -y \
 	coreutils \
 	wget \
+	git \
 	emacs
 
 # latex tools
@@ -33,7 +34,8 @@ RUN dnf install -y \
 # extra
 RUN dnf install -y \
 	dvisvgm \
-	git
+	ripgrep \
+	fd-find
 
 # fonts
 RUN dnf install -y \
@@ -49,13 +51,13 @@ RUN /install-nerdfont.sh
 COPY ./emacs-config /root/.config/emacs
 COPY ./git-config /root/.config/git
 
-WORKDIR /workdir
-VOLUME /workdir
+WORKDIR /root
 
 VOLUME /root/.config/emacs
 VOLUME /root/.ssh
 VOLUME /root/Org
 VOLUME /root/Roam
+VOLUME /root/Projects
 
 ENTRYPOINT ["emacs"]
 
