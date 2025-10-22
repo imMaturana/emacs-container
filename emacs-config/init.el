@@ -88,8 +88,9 @@
 
   (my/leader-keys
     "SPC" 'eshell
-    "r" 'restart-emacs
-    "z" 'writeroom-mode))
+    "e r" 'restart-emacs
+    "z" 'writeroom-mode
+    "d" 'dashboard-open))
 
 (use-package helm
   :init
@@ -211,15 +212,6 @@
 	       ("t" . org-roam-dailies-capture-tomorrow)))
   :bind-keymap
   ("C-c n d" . org-roam-dailies-map))
-
-(use-package org-roam-ui
-  :after org-roam
-  :hook (org-roam-mode . org-roam-ui-mode)
-  :custom
-  (org-roam-ui-sync-theme t)
-  (org-roam-ui-follow t)
-  (org-roam-ui-update-on-save t)
-  (org-roam-ui-open-on-start nil))
 
 (use-package xenops
   :after org

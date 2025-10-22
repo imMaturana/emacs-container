@@ -24,7 +24,6 @@ Next, you need to tweak your shell:
   	       --name=emacs \
   	       --network=host \
   	       -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY \
-  	       # Bind ssh keys for git authentication
   	       -v $HOME/.ssh:/root/.ssh:ro \
   	       -v $HOME/YOUR_ORG_DIRECTORY:/root/Org:z \
   	       -v $HOME/YOUR_ORG_ROAM_DIRECTORY:/root/Roam:z \
