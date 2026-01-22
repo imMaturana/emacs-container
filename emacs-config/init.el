@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Initialize package sources
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -41,7 +43,7 @@
   ;; Set font
   (set-face-attribute 'default nil
 		      :font "Hack Nerd Font Mono"
-		      :height 120)
+		      :height 110)
   
   ;; Enable Which Key
   (which-key-mode)
@@ -88,7 +90,6 @@
 
   (my/leader-keys
     "SPC" 'eshell
-    "e r" 'restart-emacs
     "z" 'writeroom-mode
     "d" 'dashboard-open))
 
@@ -102,7 +103,7 @@
 (use-package projectile
   :init
   (setq projectile-auto-discover t)
-  (setq projectile-project-search-path '("~/Projects"))
+  (setq projectile-project-search-path '("~/Projects/Code"))
   (setq projectile-cleanup-known-projects nil)
   :config
   (projectile-discover-projects-in-search-path)
@@ -128,11 +129,12 @@
   (add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
 
   (setq treesit-language-source-alist
-	'((bash "https://github.com/tree-sitter/tree-sitter-bash")
-	  (go "https://github.com/tree-sitter/tree-sitter-go")
+	'((bash   "https://github.com/tree-sitter/tree-sitter-bash")
+	  (go     "https://github.com/tree-sitter/tree-sitter-go")
 	  (python "https://github.com/tree-sitter/tree-sitter-python")
+	  (rust   "https://github.com/tree-sitter/tree-sitter-rust")
 	  (elixir "https://github.com/elixir-lang/tree-sitter-elixir")
-	  (heex "https://github.com/phoenixframework/tree-sitter-heex"))))
+	  (heex   "https://github.com/phoenixframework/tree-sitter-heex"))))
 
 (use-package doom-modeline
   :init
@@ -152,7 +154,7 @@
 
 (use-package org
   :preface
-  (setq my/org-font-height 130)
+  (setq my/org-font-height 120)
 
   (defun my/org-mode-setup ()
     (visual-line-mode)
@@ -166,52 +168,57 @@
   (org-agenda-files "~/Org/tasks.org")
   :config
   (set-face-attribute 'org-document-title nil :height 1.5)
-  (set-face-attribute 'org-level-1 nil :height 1.0)
-  (set-face-attribute 'org-level-2 nil :height 1.0)
-  (set-face-attribute 'org-level-3 nil :height 1.0)
-  (set-face-attribute 'org-level-4 nil :height 1.0)
-  (set-face-attribute 'org-level-5 nil :height 1.0)
-  (set-face-attribute 'org-level-6 nil :height 1.0)
-  (set-face-attribute 'org-block nil   :inherit 'fixed-pitch :height 1.0)
-  (set-face-attribute 'org-code nil    :inherit 'fixed-pitch :height 1.0)
+  (set-face-attribute 'org-level-1 nil        :height 1.0)
+  (set-face-attribute 'org-level-2 nil        :height 1.0)
+  (set-face-attribute 'org-level-3 nil        :height 1.0)
+  (set-face-attribute 'org-level-4 nil        :height 1.0)
+  (set-face-attribute 'org-level-5 nil        :height 1.0)
+  (set-face-attribute 'org-level-6 nil        :height 1.0)
+  (set-face-attribute 'org-block nil :inherit 'fixed-pitch :height 1.0)
+  (set-face-attribute 'org-code nil  :inherit 'fixed-pitch :height 1.0)
   :bind (:map org-mode-map
 	      ("C-c l" . org-toggle-link-display)))
 
-(use-package org-roam
-  :custom
-  (org-roam-directory (file-truename "~/Roam/"))
-  (org-roam-dailies-directory "daily/")
-
-  (org-roam-dailies-capture-templates
-   '(("d" "default" plain
-      "* Notes\n%?"
-      :if-new (file+head "%<%Y%m%d>.org" "#+title: %<%d.%m.%Y>\n")
-      :unnarrowed t)))
-
-  (org-roam-capture-templates
-   '(("d" "default" plain
-      "%?"
-      :if-new (file+head "pages/%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n")
-      :unnarrowed t)
-
-     ("b" "book" plain
-      (file "~/Roam/templates/Book.org")
-      :target (file+head "pages/%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n")
-      :unnarrowed t)))
+(use-package denote
+  :hook (dired-mode . denote-dired-mode)
+  :bind
+  (("C-c n n" . denote)
+   ("C-c n o" . denote-open-or-create)
+   ("C-c n r" . denote-remark-file)
+   ("C-c n l" . denote-link-or-create)
+   ("C-c n b" . dinote-backlinks)
+   ("C-c n d" . denote-dired)
+   ("C-c n g" . denote-grep))
   :config
-  (require 'org-roam-dailies)
-  (org-roam-setup)
-  (org-roam-db-autosync-mode)
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-	 ("C-c n f" . org-roam-node-find)
-	 ("C-c n c" . org-roam-dailies-capture-today)
-	 (:map org-mode-map
-	       ("C-c n i" . org-roam-node-insert))
-	 (:map org-roam-dailies-map
-	       ("y" . org-roam-dailies-capture-yesterday)
-	       ("t" . org-roam-dailies-capture-tomorrow)))
-  :bind-keymap
-  ("C-c n d" . org-roam-dailies-map))
+  (setq denote-directory (expand-file-name "~/Org/notes"))
+  (setq denote-known-keywords '("thoughts"
+				"notetaking"
+				"philosophy"
+				"politics"
+				"books"
+				"coding"
+				"math"
+				"report"
+				"emacs"
+				"other"
+				"profile"
+				"contacts"
+				"college"))
+  (setq denote-infer-keywords nil)
+  (setq denote-sort-keywords t)
+  (setq denote-prompts '(title keywords))
+  (setq denote-file-type 'org)
+
+  (denote-rename-buffer-mode 1))
+
+(use-package denote-journal
+  :hook (calendar-mode . denote-journal-calendar-mode)
+  :bind
+  (("C-c n j" . denote-journal-new-or-existing-entry))
+  :config
+  (setq denote-journal-directory (expand-file-name "journal" denote-directory))
+  (setq denote-journal-keyword "journal")
+  (setq denote-journal-title-format 'day-date-month-year))
 
 (use-package xenops
   :after org
@@ -265,3 +272,25 @@
 			      (recents   . "r")))
   :config
   (dashboard-setup-startup-hook))
+
+(use-package erc
+  :config
+  (setq erc-server "127.0.0.1")
+  (setq erc-port 6667)
+  (setq erc-nick nil)
+  (setq erc-user-full-name nil))
+
+(use-package newsticker
+  :preface
+  (defun my/close-newsticker ()
+    "Kill all tree-view related buffers."
+    (kill-buffer "*Newsticker List*")
+    (kill-buffer "*Newsticker Item*")
+    (kill-buffer "*Newsticker Tree*"))
+  :custom
+  (newsticker-url-list '(("A Nova Democracia" "https://anovademocracia.com.br/feed/atom")
+			 ("Agência Pública" "https://apublica.org/feed/atom")
+			 ("Outras Palavras" "https://outraspalavras.net/feed/atom")
+			 ("Jacobin Brasil" "https://jacobin.com.br/feed/atom")))
+  :config
+  (advice-add 'newsticker-treeview-quit :after 'my/close-newsticker))
