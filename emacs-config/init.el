@@ -272,25 +272,3 @@
 			      (recents   . "r")))
   :config
   (dashboard-setup-startup-hook))
-
-(use-package erc
-  :config
-  (setq erc-server "127.0.0.1")
-  (setq erc-port 6667)
-  (setq erc-nick nil)
-  (setq erc-user-full-name nil))
-
-(use-package newsticker
-  :preface
-  (defun my/close-newsticker ()
-    "Kill all tree-view related buffers."
-    (kill-buffer "*Newsticker List*")
-    (kill-buffer "*Newsticker Item*")
-    (kill-buffer "*Newsticker Tree*"))
-  :custom
-  (newsticker-url-list '(("A Nova Democracia" "https://anovademocracia.com.br/feed/atom")
-			 ("Agência Pública" "https://apublica.org/feed/atom")
-			 ("Outras Palavras" "https://outraspalavras.net/feed/atom")
-			 ("Jacobin Brasil" "https://jacobin.com.br/feed/atom")))
-  :config
-  (advice-add 'newsticker-treeview-quit :after 'my/close-newsticker))
